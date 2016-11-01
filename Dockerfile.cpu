@@ -9,6 +9,7 @@ ARG KERAS_VERSION=1.0.3
 # Install some dependencies
 RUN apt-get update && apt-get install -y \
 		bc \
+		bash-completion \
 		build-essential \
 		cmake \
 		curl \
@@ -36,6 +37,9 @@ RUN apt-get update && apt-get install -y \
 		unzip \
 		vim \
 		wget \
+		htop \
+		tmux \
+		vim \
 		zlib1g-dev \
 		&& \
 	apt-get clean && \
@@ -76,6 +80,7 @@ RUN pip --no-cache-dir install --upgrade ipython && \
 		pygments \
 		six \
 		sphinx \
+		heamy \
 		wheel \
 		zmq \
 		&& \
@@ -94,12 +99,15 @@ RUN pip --no-cache-dir install --upgrade https://github.com/Theano/Theano/archiv
 
 
 # Install Keras
-RUN pip --no-cache-dir install git+git://github.com/fchollet/keras.git@${KERAS_VERSION}
+RUN pip --no-cache-dir install --upgrade https://github.com/fchollet/keras/archive/master.zip
 
+# Install hyperopt latest
+RUN pip --no-cache-dir install --upgrade https://github.com/hyperopt/hyperopt/archive/master.zip
 
 # Install Lasagne
 RUN pip --no-cache-dir install --upgrade https://github.com/Lasagne/Lasagne/archive/master.zip 
-
+# Install PyMC3
+RUN pip --no-cache-dir install --upgrade https://github.com/pymc-devs/pymc3/archive/master.zip
 # Install XGBoost
 RUN git clone --recursive https://github.com/dmlc/xgboost /src/xgboost/
 RUN make -j4 -C /src/xgboost/
