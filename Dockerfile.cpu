@@ -40,6 +40,7 @@ RUN apt-get update && apt-get install -y \
 		htop \
 		tmux \
 		vim \
+		python3-tk \
 		zlib1g-dev \
 		&& \
 	apt-get clean && \
@@ -47,7 +48,6 @@ RUN apt-get update && apt-get install -y \
 	rm -rf /var/lib/apt/lists/* && \
 # Link BLAS library to use OpenBLAS using the alternatives mechanism (https://www.scipy.org/scipylib/building/linux.html#debian-ubuntu)
 	update-alternatives --set libblas.so.3 /usr/lib/openblas-base/libblas.so.3
-
 # Install pip
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
 	python3  get-pip.py && \
@@ -76,6 +76,7 @@ RUN pip --no-cache-dir install --upgrade ipython && \
 		ipykernel \
 		jupyter \
 		path.py \
+		pandas_profiling \
 		Pillow \
 		pygments \
 		six \
